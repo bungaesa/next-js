@@ -5,9 +5,11 @@ type ProductPageProps = {
 };
 
 async function getData() {
-  // const res = await fetch("https://fakestoreapi.com/products")
+  // const res = await fetch("https://fakestoreapi.com/products", {
+  //   cache: "no-store",
+  // });
   const res = await fetch("http://localhost:3000/api/product", {
-    cache:"force-cache",
+    cache:"no-store",
     next: {
       tags: ["products"]
       // revalidate: 30,
@@ -42,7 +44,7 @@ export default async function ProductPage({
           </a>
           <div>
               <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 text-white p-5 truncate">{product.title}</h5>
+                  <h5 className="text-xl font-semibold tracking-tight text-white p-5 truncate">{product.title}</h5>
               </a>
               <div className="flex items-center justify-between mt-3">
                   <span className="text-3xl font-extrabold text-heading">$ {product.price}</span>
