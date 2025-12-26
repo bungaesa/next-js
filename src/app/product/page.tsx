@@ -1,51 +1,36 @@
+import { getData } from "@/services/products";
+import Link from "next/link";
+
 type ProductPageProps = {
   params: {
     slug: string[];
   };
 };
 
-async function getData() {
-  // const res = await fetch("https://fakestoreapi.com/products", {
-  //   cache: "no-store",
-  // });
-  const res = await fetch("http://localhost:3000/api/product", {
-    cache:"no-store",
-    next: {
-      tags: ["products"]
-      // revalidate: 30,
-    },
-  });
-
-  if(!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json();
-  
-}
-
 export default async function ProductPage({
   params,
 }: ProductPageProps) {
     const { slug } = await params;
-    const products = await getData();
-    console.log(products);
+    const products = await getData("http://localhost:3000/api/product");
+    
   return (
     <div className="grid grid-cols-4 mt-5 place-items-center">
       {/* <h1>{slug ? "Detail Product Page" : "Product Page"}</h1> */}
       {products.data.length > 0 && 
       products.data.map((product: any) => (   
-      <div key={product.id} className="w-full max-w-sm bg-gray-800 text-white border border-gray-700 rounded-lg shadow my-5 p-8">
-          <a href="#">
+      <Link
+      href={`/product/detail/${product.id}`} 
+      key={product.id} 
+      className="w-full max-w-sm bg-gray-800 text-white border border-gray-700 rounded-lg shadow my-5 p-8"
+      >
               <img 
               className="rounded-t-lg object-cover h-96 w-full bg-white" 
               src={product.image} 
               alt="product image" />
-          </a>
           <div>
-              <a href="#">
+             
                   <h5 className="text-xl font-semibold tracking-tight text-white p-5 truncate">{product.title}</h5>
-              </a>
+             
               <div className="flex items-center justify-between mt-3">
                   <span className="text-3xl font-extrabold text-heading">$ {product.price}</span>
                   <button type="button" className="inline-flex items-center  text-white bg-blue-600 hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">
@@ -69,7 +54,7 @@ export default async function ProductPage({
                   </button>
               </div>
           </div>
-      </div>
+      </Link>
 
       ))}
       {slug && (
