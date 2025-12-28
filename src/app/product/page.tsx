@@ -21,7 +21,7 @@ export default async function ProductPage({
       <Link
       href={`/product/detail/${product.id}`} 
       key={product.id} 
-      className="w-full max-w-sm bg-gray-800 text-white border border-gray-700 rounded-lg shadow my-5 p-8"
+      className="w-11/12 max-w-sm bg-gray-800 text-white border border-gray-700 rounded-lg shadow my-5 p-8"
       >
               <img 
               className="rounded-t-lg object-cover h-96 w-full bg-white" 
@@ -29,7 +29,7 @@ export default async function ProductPage({
               alt="product image" />
           <div>
              
-                  <h5 className="text-xl font-semibold tracking-tight text-white p-5 truncate">{product.title}</h5>
+                  <h5 className="text-xl font-semibold tracking-tight text-white p-5 truncate">{product.name}</h5>
              
               <div className="flex items-center justify-between mt-3">
                   <span className="text-3xl font-extrabold text-heading">$ {product.price}</span>

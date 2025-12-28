@@ -1,6 +1,8 @@
 "use client" ;
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -40,7 +42,7 @@ export default function Navbar() {
            <div>
             <button 
                 className="bg-white rounded-md px-3 text-sm h-7 cursor-pointer"
-                onClick={() => router.push("/login")}
+                onClick={() => signIn()}
                 >
                 Login
             </button>
