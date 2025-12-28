@@ -1,4 +1,5 @@
 import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOptions: NextAuthOptions = {
@@ -37,7 +38,7 @@ const authOptions: NextAuthOptions = {
         async jwt({ token, account, profile, user }: any) {
             if (account?.provider === "credentials") {
                 token.email = user.email;
-                token.fullname = user.fullname;
+                token.fullname = user.name;
                 token.role = user.role;
             }
             return token;
@@ -55,4 +56,14 @@ const authOptions: NextAuthOptions = {
             return session;
         },
     },
+    pages: {
+        signIn: "/login",
+    }
 };
+
+const handler = NextAuth(authOptions);
+
+export {
+    handler as GET,
+    handler as POST,
+}
