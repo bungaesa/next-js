@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ status: 400, message: "Missing tag param" }, { status: 401 });
     }
     
-    revalidateTag(tag, "default");
+    revalidateTag(tag);
 
     return NextResponse.json({ revalidate: true, now: Date.now() });
 }
